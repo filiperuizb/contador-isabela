@@ -1,15 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Minus, Plus, RotateCcw, Microscope, FlaskConical, Target } from "lucide-react"
+import { Minus, Plus, RotateCcw, Microscope, Target, FlaskConical } from "lucide-react"
 
 export default function ContadorCelular() {
   const [celEpitelial, setCelEpitelial] = useState(0)
   const [linfocito, setLinfocito] = useState(0)
-  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    setIsMounted(true)
     const savedCelEpitelial = localStorage.getItem("celEpitelial")
     const savedLinfocito = localStorage.getItem("linfocito")
     if (savedCelEpitelial !== null) setCelEpitelial(Number(savedCelEpitelial))
@@ -17,15 +15,12 @@ export default function ContadorCelular() {
   }, [])
 
   useEffect(() => {
-    if (isMounted) {
-      localStorage.setItem("celEpitelial", String(celEpitelial))
-      localStorage.setItem("linfocito", String(linfocito))
-    }
-  }, [celEpitelial, linfocito, isMounted])
-  const maxCelEpitelial = 160
+    localStorage.setItem("celEpitelial", String(celEpitelial))
+    localStorage.setItem("linfocito", String(linfocito))
+  }, [celEpitelial, linfocito])
 
+  const maxCelEpitelial = 160
   const isMaxReached = celEpitelial >= maxCelEpitelial
-  const progressPercentage = (celEpitelial / maxCelEpitelial) * 100
 
   const incrementCelEpitelial = () => {
     if (celEpitelial < maxCelEpitelial) {
@@ -54,117 +49,117 @@ export default function ContadorCelular() {
     localStorage.removeItem("linfocito")
   }
 
-  if (!isMounted) return null
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 microscope-pattern p-3">
-      <div className="max-w-sm mx-auto space-y-4">
-        <div className="text-center py-4">
-          <div className="flex justify-center items-center gap-2 mb-2">
-            <div className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full">
-              <Microscope size={20} className="text-white" />
+    <div className="min-h-screen microscope-pattern flex flex-col">
+      <div className="pt-4 pb-2">
+        <div className="max-w-sm sm:max-w-md md:max-w-lg mx-auto w-full px-2 sm:px-4">
+          <div className="text-center">
+            <div className="flex justify-center items-center gap-2 mb-1">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-600 rounded-full flex items-center justify-center">
+                <Microscope size={16} className="text-white sm:w-5 sm:h-5" />
+              </div>
+              <h1 className="text-lg sm:text-2xl code-bold text-purple-600">CONTADOR</h1>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-cyan-600 rounded-full flex items-center justify-center">
+                <FlaskConical size={16} className="text-white sm:w-5 sm:h-5" />
+              </div>
             </div>
-            <h1 className="text-2xl code-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Contador
-            </h1>
-            <div className="p-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full">
-              <FlaskConical size={20} className="text-white" />
-            </div>
+            <p className="text-gray-600 text-xs code-bold">CONTAGEM DE CÉLULAS • BIOMEDICINA</p>
           </div>
-          <p className="text-gray-600 code-bold text-sm">Contagem de Células • Biomedicina</p>
         </div>
+      </div>
 
-        {isMaxReached && (
-          <div className="bg-gradient-to-r from-amber-400 to-orange-400 text-white px-4 py-3 rounded-xl text-center shadow-lg pulse-animation">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <Target size={16} className="text-white" />
-              <p className="code-bold text-sm">Limite Atingido!</p>
-              <Target size={16} className="text-white" />
+      <div className="flex-1 flex items-center justify-center p-2 sm:p-4">
+        <div className="max-w-sm sm:max-w-md md:max-w-lg mx-auto w-full">
+          {isMaxReached && (
+            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 text-amber-800 px-2 py-1 sm:px-3 sm:py-2 rounded-2xl text-center mb-3 shadow-lg">
+              <div className="flex items-center justify-center gap-2">
+                <Target size={14} className="text-amber-600" />
+                <span className="code-bold text-xs sm:text-sm">Limite de 160 células atingido!</span>
+              </div>
             </div>
-            <p className="text-xs opacity-90">Células epiteliais: 160/160 completas</p>
-          </div>
-        )}
+          )}
 
-        <div className="space-y-6">
-          <div className="cell-counter-card rounded-2xl p-4 shadow-xl border-l-4 border-purple-400">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-              <h2 className="text-center text-lg code-bold text-purple-700">Células Epiteliais</h2>
-              <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-            </div>
+          <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-4 sm:mb-6">
+            <div className="cell-counter-card rounded-2xl sm:rounded-3xl p-2 sm:p-4 shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-purple-600"></div>
 
-            <div className="text-center mb-4">
-              <div className="text-4xl font-bold text-purple-600 mb-1">{celEpitelial}</div>
-              <div className="code-bold text-xs text-gray-500 bg-gray-100 rounded-full px-3 py-1 inline-block">
-                máximo: {maxCelEpitelial}
+              <div className="flex justify-between items-start mb-2 sm:mb-3">
+                <h2 className="code-bold text-xs sm:text-sm text-purple-700 leading-tight max-w-[calc(100%-2.5rem)]">
+                  CÉLULAS
+                  <br />
+                  EPITELIAIS
+                </h2>
+                <button
+                  onClick={decrementCelEpitelial}
+                  disabled={celEpitelial === 0}
+                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-purple-100 hover:bg-purple-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all duration-200 shadow-md active:scale-90 border-2 border-purple-200"
+                >
+                  <Minus size={12} className="text-purple-600 sm:w-3.5 sm:h-3.5" />
+                </button>
+              </div>
+
+              <div className="text-center mb-2 sm:mb-4">
+                <div className="text-3xl sm:text-5xl font-bold text-purple-600 mb-1">{celEpitelial}</div>
+                <div className="text-xs text-gray-500 code-bold">máximo: {maxCelEpitelial}</div>
+              </div>
+
+              <div className="flex justify-center">
+                <button
+                  onClick={incrementCelEpitelial}
+                  disabled={isMaxReached}
+                  className="w-20 h-12 sm:w-28 sm:h-16 rounded-2xl sm:rounded-3xl gradient-border hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer text-white code-bold flex items-center justify-center transition-all duration-200 shadow-xl active:scale-95 text-xl sm:text-2xl"
+                >
+                  <Plus size={24} className="sm:w-8 sm:h-8" />
+                </button>
               </div>
             </div>
 
-            <div className="flex gap-3 justify-center">
-              <button
-                onClick={decrementCelEpitelial}
-                disabled={celEpitelial === 0}
-                  className="w-12 h-12 rounded-xl border-2 border-purple-200 bg-white hover:bg-purple-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center code-bold transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer"
-              >
-                <Minus size={20} className="text-purple-600" />
-              </button>
+            <div className="cell-counter-card rounded-2xl sm:rounded-3xl p-2 sm:p-4 shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-cyan-600"></div>
 
-              <button
-                onClick={incrementCelEpitelial}
-                disabled={isMaxReached}
-                  className="w-20 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white code-bold flex items-center justify-center transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 cursor-pointer"
-              >
-                <Plus size={24} />
-              </button>
-            </div>
-          </div>
+              <div className="flex justify-between items-start mb-2 sm:mb-3">
+                <h2 className="code-bold text-xs sm:text-sm text-cyan-700 leading-tight max-w-[calc(100%-2.5rem)]">
+                  LINFÓCITOS
+                </h2>
+                <button
+                  onClick={decrementLinfocito}
+                  disabled={linfocito === 0 || isMaxReached}
+                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-cyan-100 hover:bg-cyan-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all duration-200 shadow-md active:scale-90 border-2 border-cyan-200"
+                >
+                  <Minus size={12} className="text-cyan-600 sm:w-3.5 sm:h-3.5" />
+                </button>
+              </div>
 
-          <div className="cell-counter-card rounded-2xl p-4 shadow-xl border-l-4 border-cyan-400">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <div className="w-3 h-3 bg-cyan-500 rounded-full"></div>
-              <h2 className="text-center text-lg code-bold text-cyan-700">Linfócitos</h2>
-              <div className="w-3 h-3 bg-cyan-500 rounded-full"></div>
-            </div>
+              <div className="text-center mb-2 sm:mb-4">
+                <div className="text-3xl sm:text-5xl font-bold text-cyan-600 mb-1">{linfocito}</div>
+                <div className="text-xs text-gray-500 code-bold">sem limite</div>
+              </div>
 
-            <div className="text-center mb-4">
-              <div className="text-4xl font-bold text-cyan-600 mb-1">{linfocito}</div>
-              <div className="code-bold text-xs text-gray-500 bg-gray-100 rounded-full px-3 py-1 inline-block">
-                sem limite
+              <div className="flex justify-center">
+                <button
+                  onClick={incrementLinfocito}
+                  disabled={isMaxReached}
+                  className="w-20 h-12 sm:w-28 sm:h-16 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer text-white code-bold flex items-center justify-center transition-all duration-200 shadow-xl active:scale-95 text-xl sm:text-2xl"
+                >
+                  <Plus size={24} className="sm:w-8 sm:h-8" />
+                </button>
               </div>
             </div>
-
-            <div className="flex gap-3 justify-center">
-              <button
-                onClick={decrementLinfocito}
-                disabled={linfocito === 0 || isMaxReached}
-                  className="w-12 h-12 rounded-xl border-2 border-cyan-200 bg-white hover:bg-cyan-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center code-bold transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer"
-              >
-                <Minus size={20} className="text-cyan-600" />
-              </button>
-
-              <button
-                onClick={incrementLinfocito}
-                disabled={isMaxReached}
-                  className="w-20 h-12 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 disabled:opacity-50 disabled:cursor-not-allowed text-white code-bold flex items-center justify-center transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 cursor-pointer"
-              >
-                <Plus size={24} />
-              </button>
-            </div>
           </div>
-        </div>
 
-        <div className="pt-6">
           <button
             onClick={resetCounters}
-              className="w-full h-12 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white code-bold text-lg rounded-xl flex items-center justify-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 cursor-pointer"
+            className="w-full h-12 sm:h-14 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:via-rose-600 hover:to-pink-700 text-white code-bold text-sm sm:text-lg rounded-2xl sm:rounded-3xl flex items-center justify-center gap-2 sm:gap-3 transition-all duration-200 shadow-xl active:scale-95 border-2 border-pink-400/30 cursor-pointer"
           >
-            <RotateCcw size={20} />
+            <RotateCcw size={18} className="sm:w-6 sm:h-6" />
             Resetar Contadores
           </button>
-        </div>
 
-        <div className="text-center pb-4 pt-4">
-          <div className="text-xs text-gray-400 code-bold">Feito com Amor 🏎❤</div>
+          <div className="text-center pt-3 sm:pt-4">
+            <div className="inline-block px-2 py-1 sm:px-3 sm:py-1 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+              <div className="text-xs text-gray-500 code-bold">Feito com 🏎💜</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
