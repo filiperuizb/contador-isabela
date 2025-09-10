@@ -79,15 +79,15 @@ export default function ContadorCelular() {
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-4 sm:mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 mb-4 sm:mb-6">
             <div
               onClick={incrementCelEpitelial}
-              className="cell-counter-card rounded-2xl sm:rounded-3xl p-2 sm:p-4 shadow-xl relative overflow-hidden cursor-pointer"
+              className="cell-counter-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl relative overflow-hidden cursor-pointer"
             >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-purple-600"></div>
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 to-purple-600"></div>
 
-              <div className="flex justify-between items-start mb-2 sm:mb-3">
-                <h2 className="code-bold text-xs sm:text-sm text-purple-700 leading-tight max-w-[calc(100%-2.5rem)]">
+              <div className="flex justify-between items-start mb-4 sm:mb-6">
+                <h2 className="code-bold text-sm sm:text-lg text-purple-700 leading-tight max-w-[calc(100%-2.5rem)]">
                   CÉLULAS
                   <br />
                   EPITELIAIS
@@ -95,40 +95,40 @@ export default function ContadorCelular() {
                 <button
                   onClick={(e) => { e.stopPropagation(); decrementCelEpitelial(); }}
                   disabled={celEpitelial === 0}
-                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-purple-100 hover:bg-purple-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all duration-200 shadow-md active:scale-90 border-2 border-purple-200"
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-purple-100 hover:bg-purple-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all duration-200 shadow-md active:scale-90 border-2 border-purple-200"
                 >
-                  <Minus size={12} className="text-purple-600 sm:w-3.5 sm:h-3.5" />
+                  <Minus size={14} className="text-purple-600 sm:w-4 sm:h-4" />
                 </button>
               </div>
 
-              <div className="text-center mb-2 sm:mb-4">
-                <div className="text-3xl sm:text-5xl font-bold text-purple-600 mb-1">{celEpitelial}</div>
-                <div className="text-xs text-gray-500 code-bold">máximo: {maxCelEpitelial}</div>
+              <div className="text-center mb-4 sm:mb-6">
+                <div className="text-4xl sm:text-6xl font-bold text-purple-600 mb-2">{celEpitelial}</div>
+                <div className="text-sm text-gray-500 code-bold">máximo: {maxCelEpitelial}</div>
               </div>
             </div>
 
             <div
               onClick={incrementLinfocito}
-              className="cell-counter-card rounded-2xl sm:rounded-3xl p-2 sm:p-4 shadow-xl relative overflow-hidden cursor-pointer"
+              className="cell-counter-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl relative overflow-hidden cursor-pointer"
             >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-cyan-600"></div>
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-500 to-cyan-600"></div>
 
-              <div className="flex justify-between items-start mb-2 sm:mb-3">
-                <h2 className="code-bold text-xs sm:text-sm text-cyan-700 leading-tight max-w-[calc(100%-2.5rem)]">
+              <div className="flex justify-between items-start mb-4 sm:mb-6">
+                <h2 className="code-bold text-sm sm:text-lg text-cyan-700 leading-tight max-w-[calc(100%-2.5rem)]">
                   LINFÓCITOS
                 </h2>
                 <button
                   onClick={(e) => { e.stopPropagation(); decrementLinfocito(); }}
                   disabled={linfocito === 0 || isMaxReached}
-                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-cyan-100 hover:bg-cyan-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all duration-200 shadow-md active:scale-90 border-2 border-cyan-200"
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-cyan-100 hover:bg-cyan-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all duration-200 shadow-md active:scale-90 border-2 border-cyan-200"
                 >
-                  <Minus size={12} className="text-cyan-600 sm:w-3.5 sm:h-3.5" />
+                  <Minus size={14} className="text-cyan-600 sm:w-4 sm:h-4" />
                 </button>
               </div>
 
-              <div className="text-center mb-2 sm:mb-4">
-                <div className="text-3xl sm:text-5xl font-bold text-cyan-600 mb-1">{linfocito}</div>
-                <div className="text-xs text-gray-500 code-bold">sem limite</div>
+              <div className="text-center mb-4 sm:mb-6">
+                <div className="text-4xl sm:text-6xl font-bold text-cyan-600 mb-2">{linfocito}</div>
+                <div className="text-sm text-gray-500 code-bold">sem limite</div>
               </div>
             </div>
           </div>
