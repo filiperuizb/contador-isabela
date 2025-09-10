@@ -80,7 +80,10 @@ export default function ContadorCelular() {
           )}
 
           <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-4 sm:mb-6">
-            <div className="cell-counter-card rounded-2xl sm:rounded-3xl p-2 sm:p-4 shadow-xl relative overflow-hidden">
+            <div
+              onClick={incrementCelEpitelial}
+              className="cell-counter-card rounded-2xl sm:rounded-3xl p-2 sm:p-4 shadow-xl relative overflow-hidden cursor-pointer"
+            >
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-purple-600"></div>
 
               <div className="flex justify-between items-start mb-2 sm:mb-3">
@@ -90,7 +93,7 @@ export default function ContadorCelular() {
                   EPITELIAIS
                 </h2>
                 <button
-                  onClick={decrementCelEpitelial}
+                  onClick={(e) => { e.stopPropagation(); decrementCelEpitelial(); }}
                   disabled={celEpitelial === 0}
                   className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-purple-100 hover:bg-purple-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all duration-200 shadow-md active:scale-90 border-2 border-purple-200"
                 >
@@ -102,19 +105,12 @@ export default function ContadorCelular() {
                 <div className="text-3xl sm:text-5xl font-bold text-purple-600 mb-1">{celEpitelial}</div>
                 <div className="text-xs text-gray-500 code-bold">máximo: {maxCelEpitelial}</div>
               </div>
-
-              <div className="flex justify-center">
-                <button
-                  onClick={incrementCelEpitelial}
-                  disabled={isMaxReached}
-                  className="w-20 h-12 sm:w-28 sm:h-16 rounded-2xl sm:rounded-3xl gradient-border hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer text-white code-bold flex items-center justify-center transition-all duration-200 shadow-xl active:scale-95 text-xl sm:text-2xl"
-                >
-                  <Plus size={24} className="sm:w-8 sm:h-8" />
-                </button>
-              </div>
             </div>
 
-            <div className="cell-counter-card rounded-2xl sm:rounded-3xl p-2 sm:p-4 shadow-xl relative overflow-hidden">
+            <div
+              onClick={incrementLinfocito}
+              className="cell-counter-card rounded-2xl sm:rounded-3xl p-2 sm:p-4 shadow-xl relative overflow-hidden cursor-pointer"
+            >
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-cyan-600"></div>
 
               <div className="flex justify-between items-start mb-2 sm:mb-3">
@@ -122,7 +118,7 @@ export default function ContadorCelular() {
                   LINFÓCITOS
                 </h2>
                 <button
-                  onClick={decrementLinfocito}
+                  onClick={(e) => { e.stopPropagation(); decrementLinfocito(); }}
                   disabled={linfocito === 0 || isMaxReached}
                   className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-cyan-100 hover:bg-cyan-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center transition-all duration-200 shadow-md active:scale-90 border-2 border-cyan-200"
                 >
@@ -134,26 +130,17 @@ export default function ContadorCelular() {
                 <div className="text-3xl sm:text-5xl font-bold text-cyan-600 mb-1">{linfocito}</div>
                 <div className="text-xs text-gray-500 code-bold">sem limite</div>
               </div>
-
-              <div className="flex justify-center">
-                <button
-                  onClick={incrementLinfocito}
-                  disabled={isMaxReached}
-                  className="w-20 h-12 sm:w-28 sm:h-16 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer text-white code-bold flex items-center justify-center transition-all duration-200 shadow-xl active:scale-95 text-xl sm:text-2xl"
-                >
-                  <Plus size={24} className="sm:w-8 sm:h-8" />
-                </button>
-              </div>
             </div>
           </div>
 
-          <button
-            onClick={resetCounters}
-            className="w-full h-12 sm:h-14 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:via-rose-600 hover:to-pink-700 text-white code-bold text-sm sm:text-lg rounded-2xl sm:rounded-3xl flex items-center justify-center gap-2 sm:gap-3 transition-all duration-200 shadow-xl active:scale-95 border-2 border-pink-400/30 cursor-pointer"
-          >
-            <RotateCcw size={18} className="sm:w-6 sm:h-6" />
-            Resetar Contadores
-          </button>
+          <div className="fixed bottom-4 right-4">
+            <button
+              onClick={resetCounters}
+              className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:via-rose-600 hover:to-pink-700 text-white code-bold text-sm sm:text-lg rounded-full flex items-center justify-center transition-all duration-200 shadow-xl active:scale-95 border-2 border-pink-400/30 cursor-pointer"
+            >
+              <RotateCcw size={18} className="sm:w-6 sm:h-6" />
+            </button>
+          </div>
 
           <div className="text-center pt-3 sm:pt-4">
             <div className="inline-block px-2 py-1 sm:px-3 sm:py-1 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
